@@ -29,6 +29,7 @@ class KickCog(commands.Cog):
             embed.set_footer(text=f"User: {ctx.author}", icon_url=ctx.author.avatar.url)
             embed.timestamp = discord.utils.utcnow()
             await ctx.send(embed=embed)
+            return
         
         if (not ctx.guild.me.guild_permissions.kick_members) or (not ctx.guild.me.guild_permissions.administrator):
             embed = discord.Embed(
