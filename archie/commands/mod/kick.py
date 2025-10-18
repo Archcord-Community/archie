@@ -19,8 +19,19 @@ class KickCog(commands.Cog):
             embed.timestamp = discord.utils.utcnow()
             await ctx.send(embed=embed)
             return
+
+        if (not ctx.author.guild_permissions.kick_members) or (not ctx.author.guild_permissions.administrator):
+            embed = discord.Embed(
+                title="Error: Not authorized",
+                description="You do not have the proper permissions to use this command.",
+                color=discord.Color.red()
+            )
+            embed.set_footer(text=f"User: {ctx.author}", icon_url=ctx.author.avatar.url)
+            embed.timestamp = discord.utils.utcnow()
+            await ctx.send(embed=embed)
+            return
         
-        if not ctx.guild.me.guild_permissions.kick_members:
+        if (not ctx.guild.me.guild_permissions.kick_members) or (not ctx.guild.me.guild_permissions.administrator):
             embed = discord.Embed(
                 title="Error: insufficient permissions.",
                 description="Please ensure I have the `Kick Members` permission.\n\n> **Tip:**\n> Check my permissions by right-clicking me and selecting `Server Settings` > `Roles`. Make sure this is enabled for my highest role.",
